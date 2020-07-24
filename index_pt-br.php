@@ -42,6 +42,7 @@
 <?php
 include 'php/conexao.php';
 ?>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,11 +52,11 @@ include 'php/conexao.php';
   <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
-<body>
-  <main></main>
+<body style="overflow-x: hidden;">
+
   <!-- NAVBAR -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light maincolor sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light maincolor">
       <a class="navbar-brand text-white" href="#"><img src="img/LogoPershop.png" width="30" height="30" alt=""
           loading="lazy"> YourSale</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -97,14 +98,15 @@ include 'php/conexao.php';
     </nav>
   </header>
   <!-- /NAVBAR -->
-  <div class="container-fluid">
-    <div class="pt-1">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <div class="card">
-            <div class="card-body">
+  <main class="">
+    <div class="pt-1"></div>
+    <div class="container-fluid">
+      <div class="card p-0 m-0">
+        <div class="row ">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card-body p-1 m-1">
               <form class="form-group">
-                <div class="input-group mb-3">
+                <div class="input-group">
                   <input type="text" class="form-control" placeholder="O que está procurando?"
                     aria-label="Recipient's username" aria-describedby="button-addon2">
                   <div class="input-group-append">
@@ -113,28 +115,37 @@ include 'php/conexao.php';
                   </div>
                 </div>
               </form>
-              <!-- Produtos -->
-              <div class="pt-2"></div>
-              <div class="container-fluid">
-                <div class="row">
-                 <?php
-                 if(!isset($_GET['valor'])){
-                  $_GET['valor'] = 0;
-                }
-                $valor = $_GET['valor'];
-                 $sqlline = "SELECT * FROM tbl_produto LIMIT ".$valor.", 12";
-                $sql = $pdo->prepare($sqlline);
-                $sql->execute();
-              
-                foreach($sql as $result){
-                  extract($result);
-                  $nome = $prod_nome;
-                  $preco = $prod_preco;
-                  $path = $prod_path;
-                  ?>
-                  <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card" style="width: 18rem;">
-                      <img src="<?=$path;?>" class="img-fluid" alt="...">
+              <!--  -->
+              <div class="container-fluid p-0 m-0">
+                <div class="pt-2"></div>
+                <div class="row m-0 p-0">
+                  <?php
+                              if(!isset($_GET['valor'])){
+                            $_GET['valor'] = 0;
+                                }
+                            $valor = $_GET['valor'];
+                            $sqlline = "SELECT * FROM tbl_produto LIMIT ".$valor.", 12";
+                            $sql = $pdo->prepare($sqlline);
+                            $sql->execute();
+                            $cont =0;
+                              foreach($sql as $result){
+                             
+                                extract($result);
+                                $nome = $prod_nome;
+                                $preco = $prod_preco;
+                                $path = $prod_path;
+                                $cont++;
+                            ?>
+                  <?php 
+                        if($cont == 4){
+                         
+                        }
+                        ?>
+                  <div class="col-lg-3 col-md-12 col-sm-12  mb-3">
+                    <div class="container-fluid border border-primary" class="">
+                      <div class="container text-center">
+                        <img src="<?=$path;?>" class=" img-fluid w-75  mx-auto mt-2" alt="...">
+                      </div>
                       <div class="card-body">
                         <h5 class="card-title"><?=$nome;?></h5>
                         <p class="card-text"><?=$preco;?></p>
@@ -142,28 +153,32 @@ include 'php/conexao.php';
                       </div>
                     </div>
                   </div>
-              <?php  }?>
-                  
+                  <?php
+                           }?>
                 </div>
+
+
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item "><a class="page-link  text-dark" href="#"><i class="fas fa-backward"></i></a>
+                    </li>
+                    <li class="page-item"><a class="page-link  text-dark" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link  text-dark" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link  text-dark" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link  text-dark" href="#"><i class="fas fa-forward"></i></a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
-              
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item "><a class="page-link  text-dark" href="#"><i class="fas fa-backward"></i></a></li>
-                  <li class="page-item"><a class="page-link  text-dark" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link  text-dark" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link  text-dark" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link  text-dark" href="#"><i class="fas fa-forward"></i></a></li>
-                </ul>
-              </nav>
-              <!-- /Produtos -->
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  </div>
+        <!-- Produtos -->
+
+        <!-- /Produtos -->
+
+
+  </main>
   <footer class="page-footer">
     <div class="maincolor">
       <div class="container">
